@@ -1,0 +1,37 @@
+name: Feature request
+description: Propose a new capability or enhancement
+title: "[feat] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem does this solve for Providers, Makers, or Distributors?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: How should it work? Keep it concrete.
+    validations:
+      required: true
+  - type: dropdown
+    id: size
+    attributes:
+      label: Rough size
+      options:
+        - good first issue
+        - small
+        - medium
+        - large / needs design
+    validations:
+      required: true
+  - type: checkboxes
+    id: roadmap
+    attributes:
+      label: Roadmap check
+      options:
+        - label: I checked ROADMAP.md and this is not already listed (or I am claiming a listed item)
+          required: true

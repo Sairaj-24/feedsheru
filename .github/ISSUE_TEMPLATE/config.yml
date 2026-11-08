@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security report
+    url: https://github.com/Sairaj-24/feedsheru/blob/main/SECURITY.md
+    about: Report a vulnerability privately — do not file a public issue.
+  - name: Roadmap
+    url: https://github.com/Sairaj-24/feedsheru/blob/main/ROADMAP.md
+    about: See planned features and good first issues before opening a duplicate.

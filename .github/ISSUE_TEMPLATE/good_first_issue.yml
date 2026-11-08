@@ -1,0 +1,38 @@
+name: Good first issue
+description: Small, well-scoped task for new contributors
+title: "[good first issue] "
+labels: ["good first issue", "help wanted"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences on the task.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this matters
+    validations:
+      required: true
+  - type: textarea
+    id: work
+    attributes:
+      label: Suggested work
+      description: Files, tables, or UI surfaces likely involved.
+      placeholder: |
+        - Touch `src/...`
+        - Add field X to schema
+        - Add UI on `/...`
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true

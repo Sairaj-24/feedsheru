@@ -37,21 +37,32 @@ export default function LoginPage() {
   const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+
+    if (mode === "signup" && password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     setPending(true);
 
     try {
       const endpoint =
         mode === "login" ? "/api/auth/login" : "/api/auth/signup";
+      const payload =
+        mode === "signup"
+          ? { email, password, confirmPassword }
+          : { email, password };
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(payload),
       });
       const data = (await response.json()) as { error?: string };
 
@@ -139,6 +150,28 @@ export default function LoginPage() {
               </span>
             </label>
 
+            {mode === "signup" ? (
+              <label className="flex flex-col gap-2">
+                <span className="text-[13px] font-semibold text-slate">
+                  Confirm password
+                </span>
+                <span className="flex h-[52px] items-center gap-2.5 rounded-[12px] border border-line bg-surface px-3.5 focus-within:border-brand">
+                  <LockIcon className="size-5 shrink-0 text-slate" />
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    autoComplete="new-password"
+                    required
+                    minLength={8}
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    placeholder="Re-enter your password"
+                    className="w-full bg-transparent text-[15px] text-ink outline-none placeholder:text-slate"
+                  />
+                </span>
+              </label>
+            ) : null}
+
             {error ? (
               <p className="text-[13px] leading-snug text-red-700" role="alert">
                 {error}
@@ -170,6 +203,7 @@ export default function LoginPage() {
                   onClick={() => {
                     setMode("signup");
                     setError(null);
+                    setConfirmPassword("");
                   }}
                 >
                   Create an account
@@ -184,6 +218,7 @@ export default function LoginPage() {
                   onClick={() => {
                     setMode("login");
                     setError(null);
+                    setConfirmPassword("");
                   }}
                 >
                   Sign in

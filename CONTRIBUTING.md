@@ -13,8 +13,10 @@ Thanks for helping Sheru get fed. This guide keeps contributions small, reviewab
 Follow the local setup in [README.md](./README.md). You need:
 
 - Node.js 20+
-- `.env.local` with `AUTH_SECRET` and Neon/Postgres URLs
-- `npm run db:push` before first run
+- `.env.local` with `AUTH_SECRET` and a Postgres URL (Neon or any Postgres)
+- `npm run db:migrate` (or `npm run db:push`) before first run
+
+Self-hosting / deploy notes: [docs/HOSTING.md](./docs/HOSTING.md).
 
 Never commit `.env.local` or real credentials.
 

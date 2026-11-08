@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { SESSION_COOKIE } from "./constants";
+import { SESSION_COOKIE, sessionCookieSecure } from "./constants";
 
 export function applySessionCookie(
   response: NextResponse,
@@ -10,7 +10,7 @@ export function applySessionCookie(
   response.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: sessionCookieSecure(),
     path: "/",
     expires: expiresAt,
   });
@@ -21,7 +21,7 @@ export function clearSessionCookieOnResponse(response: NextResponse) {
   response.cookies.set(SESSION_COOKIE, "", {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: sessionCookieSecure(),
     path: "/",
     maxAge: 0,
   });

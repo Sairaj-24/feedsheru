@@ -11,3 +11,11 @@ export function getAuthSecret() {
   }
   return secret;
 }
+
+/** Session cookies are Secure in production unless AUTH_COOKIE_SECURE=false (HTTP Compose). */
+export function sessionCookieSecure() {
+  const raw = process.env.AUTH_COOKIE_SECURE?.trim().toLowerCase();
+  if (raw === "0" || raw === "false") return false;
+  if (raw === "1" || raw === "true") return true;
+  return process.env.NODE_ENV === "production";
+}

@@ -30,9 +30,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (keep .env.example for contributors)
+# env files (keep examples for contributors)
 .env*
 !.env.example
+!.env.docker.example
 
 # local sqlite
 /data/*.db

@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# build / IDE
+.next/
+dist/
+build/
+.DS_Store
+*.log
+.idea/
+.vscode/

@@ -40,7 +40,7 @@ async function OnboardingContent() {
         </p>
       </div>
 
-      <LogoutButton />
+      <LogoutButton variant="secondary" />
 
       <Link
         href="/"

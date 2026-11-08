@@ -8,7 +8,18 @@ export async function POST(request: Request) {
     const body = (await request.json()) as {
       email?: string;
       password?: string;
+      confirmPassword?: string;
     };
+
+    if (
+      body.confirmPassword !== undefined &&
+      body.password !== body.confirmPassword
+    ) {
+      return NextResponse.json(
+        { error: "Passwords do not match." },
+        { status: 400 },
+      );
+    }
 
     const result = await signupWithPassword(
       body.email ?? "",

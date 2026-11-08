@@ -3,7 +3,15 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function LogoutButton() {
+type LogoutButtonProps = {
+  variant?: "primary" | "secondary";
+  className?: string;
+};
+
+export function LogoutButton({
+  variant = "primary",
+  className = "",
+}: LogoutButtonProps) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
 
@@ -18,12 +26,20 @@ export function LogoutButton() {
     }
   }
 
+  const baseStyles =
+    "flex h-[52px] w-full items-center justify-center rounded-[12px] text-base font-semibold disabled:opacity-60";
+
+  const variantStyles =
+    variant === "secondary"
+      ? "border border-line bg-surface text-slate transition-colors hover:bg-mist hover:text-ink active:bg-mist"
+      : "bg-brand text-on-brand transition-opacity hover:opacity-90 active:opacity-80";
+
   return (
     <button
       type="button"
       onClick={handleLogout}
       disabled={pending}
-      className="flex h-[52px] w-full items-center justify-center rounded-[12px] bg-brand text-base font-semibold text-on-brand transition-opacity hover:opacity-90 active:opacity-80 disabled:opacity-60"
+      className={`${baseStyles} ${variantStyles} ${className}`.trim()}
     >
       {pending ? "Signing out…" : "Sign out"}
     </button>

@@ -8,6 +8,22 @@ FeedSheru is a mobile-first web app that turns leftover food into meals for stre
 
 ---
 
+## Why open source
+
+Street feeding is hyperlocal. One neighbourhood or city should be able to run FeedSheru for **their** streets — without waiting on a central operator.
+
+Open source means you can:
+
+- **Self-host** for your hood, NGO, campus, or city
+- **Fork and adapt** copy, roles, and flows to local reality
+- **Contribute** features others can reuse
+
+Open source spreads the **software**. It does not recruit Providers, Makers, or Distributors for you. The strongest setup is usually: a simple hosted pilot for people who won’t run servers, plus this repo for groups who want to self-host and contribute.
+
+**Want to run your own instance?** See [docs/HOSTING.md](./docs/HOSTING.md) — Vercel + Neon, or one-command Docker Compose.
+
+---
+
 ## The problem
 
 Every day, restaurants, stalls, and homes throw away edible food while street dogs go hungry. Today that gap is closed with WhatsApp groups, memory, and goodwill — which breaks down when:
@@ -79,13 +95,16 @@ Perfect for sharing a link on WhatsApp with a restaurant owner or a feeder in th
 
 | Area | Status |
 | --- | --- |
-| Marketing / mission framing | In progress via this README + UI copy |
-| Email + password auth | Done (session cookies, Neon Postgres) |
-| Password hashing | Done (bcrypt) |
-| Post-login onboarding shell | Done (role selection is next) |
-| Provider listings | Planned |
-| Maker claim / cook flow | Planned |
-| Distributor feed logs | Planned |
+| Email + password auth | Done (session cookies, bcrypt, lockout) |
+| Onboarding | Done — pick Provider, Maker, or Distributor; optional name and area |
+| Role-aware home | Done — tools + recent jobs you created or claimed |
+| Provider listings | Done — publish surplus (kitchen or ready-to-feed) and track status |
+| Maker claim / cook | Done — claim open kitchen jobs, mark meals ready |
+| Distributor runs | Done — claim ready meals (or skip-kitchen surplus) and log a feed |
+| Custody timeline | Done — listing detail shows status history; pickup address only for people on the job |
+| Feed proof | Done — quantity, approx. animals, place (photo upload not yet) |
+| Self-host | Done — Vercel + Neon, or Docker Compose |
+| Demo seed | Done — `npm run db:seed` (accounts in [docs/HOSTING.md](./docs/HOSTING.md)) |
 | Maps / photos / SLA flags | Planned |
 
 See the full backlog in [ROADMAP.md](./ROADMAP.md).
@@ -98,11 +117,19 @@ See the full backlog in [ROADMAP.md](./ROADMAP.md).
 | --- | --- |
 | App | [Next.js](https://nextjs.org/) (App Router) + React + TypeScript |
 | UI | Tailwind CSS (evergreen brand palette) |
-| Database | [Neon](https://neon.com/) Postgres |
+| Database | Postgres ([Neon](https://neon.com/) or any Postgres) |
 | ORM | [Drizzle](https://orm.drizzle.team/) |
 | Auth | First-party email/password + HTTP-only session cookies |
 
-Hosting target for a public pilot: **Vercel** (app) + **Neon** (database).
+**Host it:** [docs/HOSTING.md](./docs/HOSTING.md) — **Vercel + Neon** (cloud pilot) or **Docker Compose** (self-host).
+
+Quick self-host:
+
+```bash
+cp .env.docker.example .env
+# set AUTH_SECRET
+docker compose up --build
+```
 
 ---
 
@@ -111,7 +138,7 @@ Hosting target for a public pilot: **Vercel** (app) + **Neon** (database).
 ### Prerequisites
 
 - Node.js 20+ (recommended)
-- A free [Neon](https://neon.com/) project (or any Postgres URL)
+- Postgres (free [Neon](https://neon.com/) project, Docker Compose DB, or any Postgres URL)
 - npm
 
 ### Install
@@ -125,21 +152,21 @@ cp .env.example .env.local
 
 ### Environment
 
-Edit `.env.local`:
+Edit `.env.local` (see `.env.example` for Neon vs any-Postgres notes):
 
 ```bash
 # Generate with:
 # node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 AUTH_SECRET=your-long-random-string
 
-DATABASE_URL=postgresql://USER:PASSWORD@HOST-pooler/neondb?sslmode=require
-DATABASE_URL_UNPOOLED=postgresql://USER:PASSWORD@HOST/neondb?sslmode=require
+DATABASE_URL=postgresql://USER:PASSWORD@HOST/db?sslmode=require
 ```
 
 ### Run
 
 ```bash
-npm run db:push
+npm run db:migrate
+npm run db:seed   # optional demo users + listings
 npm run dev
 ```
 
@@ -153,7 +180,9 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Production build |
 | `npm run start` | Run production build |
 | `npm run lint` | ESLint |
-| `npm run db:push` | Push Drizzle schema to Postgres |
+| `npm run db:migrate` | Apply SQL migrations in `drizzle/` |
+| `npm run db:push` | Push Drizzle schema (dev shortcut) |
+| `npm run db:seed` | Upsert demo users + sample listings |
 | `npm run db:studio` | Open Drizzle Studio |
 
 ---

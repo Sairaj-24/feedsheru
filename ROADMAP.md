@@ -9,7 +9,7 @@ Status key: **todo** · **good first issue** · **larger**
 ## Now (foundation)
 
 ### 1. Role selection during onboarding
-- **Status:** todo · good first issue
+- **Status:** done
 - **Why:** Post-login page already says users will choose Provider, Maker, or Distributor.
 - **Suggested work:**
   - Add a `role` field on `users` (or a profile table)
@@ -18,7 +18,7 @@ Status key: **todo** · **good first issue** · **larger**
 - **Acceptance:** New user can pick a role once; returning users land on a role-aware home.
 
 ### 2. Basic profile fields
-- **Status:** todo · good first issue
+- **Status:** done (name + city/area on onboarding; phone column unused)
 - **Why:** Roles need a display name and rough area to coordinate food.
 - **Suggested work:**
   - Name, city/area, optional phone
@@ -26,7 +26,7 @@ Status key: **todo** · **good first issue** · **larger**
 - **Acceptance:** Profile saves and shows on the user’s home screen.
 
 ### 3. Protected route helper
-- **Status:** todo · good first issue
+- **Status:** done
 - **Why:** Keep auth checks consistent as features grow.
 - **Suggested work:**
   - Shared helper/layout that redirects unauthenticated users
@@ -38,7 +38,7 @@ Status key: **todo** · **good first issue** · **larger**
 ## Next (core loop)
 
 ### 4. Provider: create a surplus food listing
-- **Status:** todo · help wanted · larger
+- **Status:** done
 - **Why:** Providers are the supply side of the loop.
 - **Suggested work:**
   - Listing model: title, description, quantity, pickup window, area
@@ -46,7 +46,7 @@ Status key: **todo** · **good first issue** · **larger**
 - **Acceptance:** Provider can publish a listing and see it in their list.
 
 ### 5. Maker: claim a listing to cook
-- **Status:** todo · help wanted · larger
+- **Status:** done
 - **Why:** Surplus becomes meals through makers.
 - **Suggested work:**
   - Browse open listings
@@ -54,7 +54,7 @@ Status key: **todo** · **good first issue** · **larger**
 - **Acceptance:** Only one maker can claim an open listing; status updates for both sides.
 
 ### 6. Distributor: claim ready meals for delivery
-- **Status:** todo · help wanted · larger
+- **Status:** done
 - **Why:** Meals need to reach street dogs.
 - **Suggested work:**
   - Browse `ready` meals
@@ -62,7 +62,7 @@ Status key: **todo** · **good first issue** · **larger**
 - **Acceptance:** Distributor can complete a delivery and the listing closes.
 
 ### 7. Listing status timeline
-- **Status:** todo · good first issue
+- **Status:** done
 - **Why:** Everyone needs a shared source of truth.
 - **Suggested work:**
   - Show status history on a listing detail page
@@ -73,24 +73,24 @@ Status key: **todo** · **good first issue** · **larger**
 ## Later (trust & reach)
 
 ### 8. City / area filter on listings
-- **Status:** todo · enhancement
+- **Status:** done (maker browse filters by onboarding area, case-insensitive)
 - **Suggested work:** Filter browse views by city/area string (map optional later).
 
 ### 9. Simple activity feed on home
-- **Status:** todo · enhancement · good first issue
+- **Status:** done
 - **Suggested work:** Show the signed-in user’s recent listings/claims.
 
 ### 10. Empty states & copy pass
-- **Status:** todo · docs/design · good first issue
+- **Status:** done (role homes + listing not-found)
 - **Suggested work:** Friendly empty states for each role when there is nothing to do yet.
 
 ### 11. Seed script for demo data
-- **Status:** todo · good first issue
+- **Status:** done (`npm run db:seed`)
 - **Suggested work:** Script that creates sample users + listings for local demos (no real PII).
 
 ### 12. Deploy a public demo
 - **Status:** todo · chore · maintainer
-- **Suggested work:** Host on Vercel + Neon; link from README.
+- **Suggested work:** Host on Vercel + Neon; link from README. Self-host path is documented in `docs/HOSTING.md` (Docker Compose).
 
 ---
 

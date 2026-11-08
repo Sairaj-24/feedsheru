@@ -15,7 +15,7 @@ export default function Home() {
 async function HomeContent() {
   const user = await getCurrentUser();
   if (user) {
-    redirect("/onboarding");
+    redirect(user.primaryRole ? "/home" : "/onboarding");
   }
 
   return <LoginPage />;

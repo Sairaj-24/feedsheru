@@ -13,6 +13,10 @@ export async function GET() {
       user: {
         id: user.id,
         email: user.email,
+        displayName: user.displayName,
+        cityArea: user.cityArea,
+        phone: user.phone,
+        primaryRole: user.primaryRole,
         lastLoginAt: user.lastLoginAt,
       },
     });

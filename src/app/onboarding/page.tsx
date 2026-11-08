@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
 import { LogoutButton } from "@/components/LogoutButton";
+import { OnboardingForm } from "@/components/OnboardingForm";
 import { getCurrentUser } from "@/lib/auth/session";
 
 export default function OnboardingPage() {
@@ -24,30 +24,14 @@ async function OnboardingContent() {
   if (!user) {
     redirect("/");
   }
+  if (user.primaryRole) {
+    redirect("/home");
+  }
 
   return (
     <Shell>
-      <div className="flex flex-col gap-2">
-        <p className="text-[13px] font-semibold tracking-[0.14em] text-brand uppercase">
-          FeedSheru
-        </p>
-        <h1 className="font-display text-[28px] leading-tight font-bold tracking-tight text-ink">
-          You&apos;re signed in
-        </h1>
-        <p className="text-[15px] leading-relaxed text-slate">
-          Signed in as {user.email}. Next you&apos;ll choose how you help —
-          Provider, Maker, or Distributor.
-        </p>
-      </div>
-
+      <OnboardingForm email={user.email} />
       <LogoutButton variant="secondary" />
-
-      <Link
-        href="/"
-        className="text-center text-[13px] font-medium text-brand underline-offset-2 hover:underline"
-      >
-        Back to login
-      </Link>
     </Shell>
   );
 }
